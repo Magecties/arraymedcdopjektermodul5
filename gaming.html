@@ -25,23 +25,23 @@ function filterMusic(selectedGenre) {
     genre = selectedGenre;
     ShowAlbums();
 }
-
-
+// her laver vi en variabel der hedder content1 som så skal være den der indsætter alt det data vi får inde i vores p med id= content
 let content1 = document.getElementById("content");
-let albums = []; // Initialize an empty array to store the albums
+let albums = []; // her laver vi et tomt array som vi gør klar til at få data indsat på
 
 fetchContent('albums.json').then((data) => {
-    albums = data; // Store the fetched data in the "albums" array
-    console.log(albums)
+    albums = data; // her sætter vi så det data ind i albums arrayet som vi har fået fra json filen
+    console.log(albums) // vi logger det for at se om albums virkede
 });
 
 function ShowAlbums() {
-    content1.innerHTML = ''; // Clear the current content
+    content1.innerHTML = ''; // her rydder vi det man ser på siden så der kan komme en ny genre ind
 
     // Hver gang vi skal have vist et album med en bestemt genre, går den ind i vores musikalbumarkiv array og udplukker alle albums
     // der har den specifikke genre og sætter dem ind i et nyt array kaldet filteredAlbums og viser nedstående oplysninger om dem 
     const filteredAlbums = albums.filter(album => album.genre === genre);
 
+    // her kalder vi på de oplysninger som vi gerne vil have fra hvert album med den bestemte genre, hvis knap som vi trykker på (som vi søger på overnover.)
     filteredAlbums.forEach(album => {
         content1.innerHTML += "Artist: " + album.artistName + "<br>";
         content1.innerHTML += "Album: " + album.albumName + "<br>";
@@ -50,6 +50,7 @@ function ShowAlbums() {
     });
 }
 
+//fetch funktion
 function fetchContent(url) {
     return fetch(url)
         .then(response => response.json())
