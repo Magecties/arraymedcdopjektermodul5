@@ -9,96 +9,49 @@
 <body>
 
 <div id="knapperne">
-<button id="Rock">
- Rock
-</button>
-
-<button id="Pop">
-    Pop
-</button>
-
-<button id="Alternative Rock ">
-    Alternative Rock 
-</button>
-
-<button id="Funk">
-    Funk
-</button>
-
-<button id="moviesoundtrack">
-    Movie Soundtrack
-</button>
-
-<button id="sorterefterknap">
-    sorter
-</button>
-  
+<button id="Rock" onclick="filterMusic('Rock')">Rock</button>
+<button id="Pop" onclick="filterMusic('Pop')">Pop</button>
+<button id="Alternative Rock" onclick="filterMusic('Alternative Rock')">Alternative Rock</button>
+<button id="Funk" onclick="filterMusic('Funk')">Funk</button>
+<button id="moviesoundtrack" onclick="filterMusic('Movie Soundtrack')">Movie Soundtrack</button>
 </div>
 <p id="content"></p>
 <script>  
-let genre = ""
+let genre = "";
 
-if(genre == "pop"){
-    let fjernrock = document.getElementById("Rock");
-    fjernrock.style.display = "none";
+function filterMusic(selectedGenre) {
+    genre = selectedGenre;
+    ShowAlbums();
 }
 
 let content1 = document.getElementById("content");
+let albums = []; // Initialize an empty array to store the albums
 
-fetchContent('/albums.json').then((albums) => {
-console.log(albums);
-
-
-
-for(i = 0; i < albums.length; i++){
-    let abekat = Album(albums[i]);
-
-
-}
-
-
-function Album(id, albumName, artistName, genre){
-this.id = id;
-this.albumName = albumName;
-this.artistName = artistName;
-this.genre = genre;
-return;
-}
-
-
-document.getElementById("sorterefterknap").addEventListener("click", genre = "pop");
-
-function ShowAlbum(){
-for(i = 0; i < albums.length; i++){
-    content1.innerHTML += "Artist: " + albums[i].artistName + "<br>";
-    
-    content1.innerHTML += "Album: " + albums[i].albumName + "<br>";
-    
-    content1.innerHTML += "Website: " + albums[i].artistWebsite + "<br>";
-
-    content1.innerHTML += "Genre: " + albums[i].genre + "<br>";
-    
-    content1.innerHTML += "<br>";   
-}
-}
-
-
-
-
-
+fetchContent('albums.json').then((data) => {
+    albums = data; // Store the fetched data in the "albums" array
 });
 
+function ShowAlbums() {
+    content1.innerHTML = ''; // Clear the current content
 
+    // Filter and display albums based on the selected genre
+    const filteredAlbums = albums.filter(album => album.genre === genre);
 
-
-async function fetchContent(url) {
-  let request = await fetch(url);
-  let json = await request.json();
-  return json;
+    filteredAlbums.forEach(album => {
+        content1.innerHTML += "Artist: " + album.artistName + "<br>";
+        content1.innerHTML += "Album: " + album.albumName + "<br>";
+        content1.innerHTML += "Website: " + album.artistWebsite + "<br>";
+        content1.innerHTML += "Genre: " + album.genre + "<br><br>";
+    });
 }
+
+function fetchContent(url) {
+    return fetch(url)
+        .then(response => response.json())
+        .catch(error => console.error('Error fetching data:', error));
+}
+
 </script>
 
-
 </body>
-
 </html>
