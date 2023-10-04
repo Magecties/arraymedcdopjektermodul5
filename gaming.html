@@ -38,7 +38,8 @@ fetchContent('albums.json').then((data) => {
 function ShowAlbums() {
     content1.innerHTML = ''; // Clear the current content
 
-    // Filter and display albums based on the selected genre
+    // Hver gang vi skal have vist et album med en bestemt genre, går den ind i vores musikalbumarkiv array og udplukker alle albums
+    // der har den specifikke genre og sætter dem ind i et nyt array kaldet filteredAlbums og viser nedstående oplysninger om dem 
     const filteredAlbums = albums.filter(album => album.genre === genre);
 
     filteredAlbums.forEach(album => {
