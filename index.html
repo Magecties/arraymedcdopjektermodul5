@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<link rel="stylesheet" href="albums.json">  
+
+
+<body>
+
+</body>
+
+
+<script>
+
+fetch('/albums.json') // Replace with your JSON file path
+  .then(response => response.json())
+  .then(albums => {
+    // Your code to handle the 'data' goes here
+    console.log(albums); // For example, you can log the data to the console
+  })
+
+  /*
+fetchContent("/albums.json").then((albums) => {
+console.log(albums); 
+
+/*
+function cdarray(kunsterNavn, albumNavn, totalPlaytime) {
+        this.kunsterNavn = kunsterNavn;
+        this.albumNavn = albumNavn;
+        this.totalPlaytime = totalPlaytime;
+}
+
+const album1 = new cdarray("", "adasd", "asdasdad");
+
+*/
+
+
+
+// });
+
+async function fetchContent(url) {
+  let request = await fetch(url);
+  let json = await request.json();
+  return json;
+}
+
+
+
+</script>
+</html>
