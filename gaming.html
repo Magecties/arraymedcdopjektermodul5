@@ -7,28 +7,32 @@
 </style>
 </head>
 <body>
-
-<div id="knapperne">
+    <!--vi laver alle de forskellige genrer som vi gerne vil have og vi giver dem et id så laver vi et onclick event
+        der kalder funktionen filterMusic som så giver den specifikke genre og derefter giver vi et navn til knappen
+    -->
 <button id="Rock" onclick="filterMusic('Rock')">Rock</button>
 <button id="Pop" onclick="filterMusic('Pop')">Pop</button>
 <button id="Alternative Rock" onclick="filterMusic('Alternative Rock')">Alternative Rock</button>
 <button id="Funk" onclick="filterMusic('Funk')">Funk</button>
 <button id="moviesoundtrack" onclick="filterMusic('Movie Soundtrack')">Movie Soundtrack</button>
-</div>
-<p id="content"></p>
-<script>  
-let genre = "";
 
+<p id="content"></p>
+
+<script>  
+
+// her laver vi en funktion som heder filterMusic og definerer så den genre vi skrev ovenover som selectedgenre
 function filterMusic(selectedGenre) {
     genre = selectedGenre;
     ShowAlbums();
 }
+
 
 let content1 = document.getElementById("content");
 let albums = []; // Initialize an empty array to store the albums
 
 fetchContent('albums.json').then((data) => {
     albums = data; // Store the fetched data in the "albums" array
+    console.log(albums)
 });
 
 function ShowAlbums() {
